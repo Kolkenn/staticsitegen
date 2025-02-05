@@ -17,11 +17,11 @@ class TextNode():
 
     def __eq__(self, other):
         if not isinstance(other,TextNode):
-            raise Exception(f"{other} is not a valid TextNode object.")
+            return False
         return (
-            self.text is other.text 
-            and self.text_type is other.text_type 
-            and self.url is other.url
+            self.text == other.text and
+            self.text_type == other.text_type and
+            self.url == other.url
             )
 
     def __repr__(self):
