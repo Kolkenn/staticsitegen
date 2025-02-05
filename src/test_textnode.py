@@ -24,7 +24,7 @@ class TestTextNode(unittest.TestCase):
     
     def test_repr(self):
         node = TextNode("This is a text node", TextType.BOLD)
-        self.assertEqual("TextNode(This is a text node, bold, None)",repr(node))
+        self.assertEqual("TextNode(This is a text node, TextType.BOLD, None)",repr(node))
 
     def test_text_node_to_html(self):
         node = TextNode("I'm just text!", TextType.TEXT)
@@ -59,7 +59,9 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.value,"")
         self.assertEqual(html_node.props,{'src':'www.catsarecute.org/photo_of_fluffy.png','alt':'Image of cute cats!'})
         
-    
+        node = TextNode("This will raise an exception.",'Exception')
+        with self.assertRaises(ValueError):
+            text_node_to_html_node(node)
     
 
 
