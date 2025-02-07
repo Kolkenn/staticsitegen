@@ -1,6 +1,6 @@
 import unittest
 from textnode import *
-from functions import extract_markdown_images,extract_markdown_links
+from inline_functions import extract_markdown_images,extract_markdown_links
 
 class TestExtractFunc(unittest.TestCase):
     def test_image_extract(self):
