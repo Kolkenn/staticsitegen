@@ -2,29 +2,51 @@ import unittest
 from block_functions import markdown_to_blocks,block_to_block_type
 
 class TestBlockFunctions(unittest.TestCase):
-    def test_list_block_id(self):
-        correct = "Unordered List"
-        
-        markdown = "* Carrots\n*Tomatoes\n*Onions"
+    def test_ordered_list_block_id(self):
+        correct = "ordered_list"
+        markdown = "1. Carrots\n2. Tomatoes\n3. Onions"
         type = block_to_block_type(markdown)
         self.assertEqual(type,correct)
 
-    def test_heading_block_id(self):
-        correct = "Heading"
+        correct = "paragraph"
+        markdown = "1. Carrots\n2. Tomatoes\n3.Onions"
+        type = block_to_block_type(markdown)
+        self.assertEqual(type,correct)
+    
+    def test_unordered_list_block_id(self):
+        correct = "unordered_list"
         
-        markdown = "### Play of the Century"
+        markdown = "* Carrots\n* Tomatoes\n* Onions"
+        type = block_to_block_type(markdown)
+        self.assertEqual(type,correct)
+
+        markdown = "- Carrots\n- Tomatoes\n- Onions"
+        type = block_to_block_type(markdown)
+        self.assertEqual(type,correct)
+
+        correct = "paragraph"
+        markdown = "* Carrots\n- Tomatoes\n* Onions"
         type = block_to_block_type(markdown)
         self.assertEqual(type,correct)
     
     def test_heading_block_id(self):
-        correct = "Heading"
+        correct = "heading"
         
         markdown = "### Play of the Century"
+        type = block_to_block_type(markdown)
+        self.assertEqual(type,correct)
+        
+        markdown = "###### Play of the Century"
+        type = block_to_block_type(markdown)
+        self.assertEqual(type,correct)
+
+        correct = "paragraph"
+        markdown = "######### Play of the Century"
         type = block_to_block_type(markdown)
         self.assertEqual(type,correct)
     
     def test_code_block_id(self):
-        correct = "Code"
+        correct = "code"
         
         markdown = "```print(Hello World)```"
         type = block_to_block_type(markdown)
@@ -35,7 +57,7 @@ class TestBlockFunctions(unittest.TestCase):
         self.assertEqual(type,correct)
 
     def test_quote_block_id(self):
-        correct = "Quote"
+        correct = "quote"
         
         markdown = ">Friends, Romans, countrymen, lend me your ears"
         type = block_to_block_type(markdown)
