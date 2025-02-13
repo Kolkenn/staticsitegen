@@ -1,9 +1,28 @@
-block_type_paragraph = "paragraph"
-block_type_heading = "heading"
-block_type_code = "code"
-block_type_quote = "quote"
-block_type_olist = "ordered_list"
-block_type_ulist = "unordered_list"
+from htmlnode import *
+from textnode import *
+from inline_functions import *
+
+block_type_paragraph = "p" # Paragraph
+block_type_code = "code" # Code
+block_type_quote = "blockquote" # Quote
+block_type_olist = "ol" # Ordered List
+block_type_ulist = "ul" # Unodered_list
+
+def markdown_to_html_node(markdown):
+    html_list = []
+    md_blocks = markdown_to_blocks(markdown)
+    for blocks in md_blocks:
+        type = block_to_block_type(blocks)
+        children = text_to_children(blocks)
+        html_list.append(ParentNode(type,children))
+    return print(ParentNode("div",html_list).to_html())
+
+def text_to_children(text,type):
+    text_nodes = text_to_textnodes(text)
+    children = []
+    for node in text_nodes:
+        children.append(text_node_to_html_node(node))
+    return children
 
 def markdown_to_blocks(markdown_line):
     blocks = markdown_line.split("\n\n")
@@ -26,7 +45,7 @@ def block_to_block_type(markdown_block):
                 break
             elif heading_section[i] == '#':
                 if heading_section[i + 1] == ' ':
-                    return block_type_heading
+                    return f"h{i + 1}"
     # Code blocks must start with 3 backticks and end with 3 backticks.
     if markdown_block.startswith('```') and markdown_block.endswith('```'):
         return block_type_code
