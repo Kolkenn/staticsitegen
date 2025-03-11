@@ -6,7 +6,7 @@ def text_to_textnodes(text):
     images_processed = split_nodes_image(text_node)
     links_processed = split_nodes_link(images_processed)
     bold_processed = split_nodes_delimiter(links_processed,"**",TextType.BOLD)
-    italic_processed = split_nodes_delimiter(bold_processed,"*",TextType.ITALIC)
+    italic_processed = split_nodes_delimiter(bold_processed,"_",TextType.ITALIC)
     code_processed = split_nodes_delimiter(italic_processed,"`",TextType.CODE)
     return code_processed
 
