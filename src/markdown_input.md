@@ -1,11 +1,10 @@
-# Markdown syntax guide
-
 ## Headers
 
 # This is a Heading h1
-
 ## This is a Heading h2
-
+### This is a Heading h3
+#### This is a Heading h4
+##### This is a Heading h5
 ###### This is a Heading h6
 
 ## Emphasis
@@ -46,7 +45,6 @@ You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
 > Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.
 
 ## Blocks of code
-
 ```
 let message = 'Hello world';
 alert(message);

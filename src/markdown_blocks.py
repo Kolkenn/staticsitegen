@@ -1,6 +1,6 @@
 from htmlnode import *
 from textnode import *
-from inline_functions import *
+from inline_markdown import *
 
 block_type_paragraph = "p" # Paragraph
 block_type_code = "code" # Code
@@ -13,7 +13,7 @@ def markdown_to_html_node(markdown):
     md_blocks = markdown_to_blocks(markdown)
     for blocks in md_blocks:
         type = block_to_block_type(blocks)
-        children = text_to_children(blocks)
+        children = text_to_children(blocks,type)
         html_list.append(ParentNode(type,children))
     return print(ParentNode("div",html_list).to_html())
 
@@ -26,12 +26,13 @@ def text_to_children(text,type):
 
 def markdown_to_blocks(markdown_line):
     blocks = markdown_line.split("\n\n")
-    valid_blocks = []
-    for i in range(len(blocks)):
-        if blocks[i] == "":
+    filtered_blocks = []
+    for block in blocks:
+        if block == "":
             continue
-        valid_blocks.append(blocks[i].strip('\n '))
-    return valid_blocks
+        block = block.strip()
+        filtered_blocks.append(block)
+    return filtered_blocks
 
 def block_to_block_type(markdown_block):
     lines = markdown_block.split('\n')
