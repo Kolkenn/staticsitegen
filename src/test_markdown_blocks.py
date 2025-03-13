@@ -1,10 +1,5 @@
 import unittest
-from markdown_blocks import (
-    markdown_to_html_node,
-    markdown_to_blocks,
-    block_to_block_type,
-    BlockType,
-)
+from markdown_blocks import *
 
 
 class TestMarkdownToHTML(unittest.TestCase):
@@ -162,6 +157,17 @@ the **same** even with inline stuff
             html,
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
         )
+
+    def test_extract_title(self):
+        md = "# Tolkien Fan Club"
+        self.assertEqual("Tolkien Fan Club",extract_title(md))
+
+        md = "*bolded word*"
+        with self.assertRaises(LookupError):
+            extract_title(md)
+
+        md = "## Wrong Heading"
+        self.assertRaises(LookupError,extract_title,md)
 
 if __name__ == "__main__":
     unittest.main()

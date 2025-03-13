@@ -139,3 +139,9 @@ def quote_to_html_node(block):
     content = " ".join(new_lines)
     children = text_to_children(content)
     return ParentNode("blockquote", children)
+
+def extract_title(markdown):
+    for block in markdown_to_blocks(markdown):
+        if block.startswith("# "):
+            return block[2:].strip()
+    raise LookupError("No [h1] header found.")
